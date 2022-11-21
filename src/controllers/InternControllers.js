@@ -6,6 +6,8 @@ const {isValid,isValidName,isValidEmail,isValidMobile, isValidcollegeName} = req
 
 
 const createIntern =  async function (req, res) {
+    res.setHeader("Access-Control-Allow-Origin","http://localhost:3000")
+
     try {
        let {name,email,mobile,collegeName}=req.body
      
@@ -13,7 +15,7 @@ const createIntern =  async function (req, res) {
        {
            return res.status(400).send({status:false, msg: "Insert Data : BAD REQUEST" })
        }
-       if(Object.keys(req.query).length >0)  return res.status(400).send({status:false, msg: "don,t put data in params" })
+       //if(Object.keys(req.query).length >0)  return res.status(400).send({status:false, msg: "don,t put data in params" })
        if (!isValid(name)) 
        {
            return res.status(400).send({ status:false,msg: "Enter Name" })
@@ -55,7 +57,7 @@ const createIntern =  async function (req, res) {
        res.status(201).send({status:true,data:createdIntern})
 
     }
-    catch(error){
+    catch(error){  
         res.status(500).send({ msg: error.message })
     }
 }
